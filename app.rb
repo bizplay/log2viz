@@ -7,6 +7,7 @@ STDOUT.sync = true
 require_relative 'heroku/api'
 
 class App < Sinatra::Base
+
   set :raise_errors, false
   set :show_exceptions, false
 
@@ -41,6 +42,7 @@ class App < Sinatra::Base
   end
 
   helpers do
+
     # Heroku API
     def api
       halt(401) unless request.env['bouncer.token']
@@ -185,7 +187,9 @@ class App < Sinatra::Base
               parsed_line = {
                 "requests" => 1,
                 "response_time" => data["service"].to_i,
-                "status" => "#{data["status"][0]}xx"
+                "status" => "#{data["status"][0]}xx",
+                "path" => "#{data["method"]} #{data["path"]}".gsub('"',"").gsub(/\d{1,}/, "#").split("?").first,
+                "fwd" => data["fwd"].gsub('"',"")
               }
               parsed_line["error"] = data["code"] if data["code"]
             elsif ps == "web" && data.key?("sample#memory_total")

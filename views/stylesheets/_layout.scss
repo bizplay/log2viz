@@ -14,7 +14,7 @@ header {
   #title {
     float: left;
   }
-  
+
   #nav {
     float: right;
     list-style: none;
@@ -33,4 +33,14 @@ header {
   width: 70%;
   list-style-position: inside;
   list-style-type: square;
+}
+
+#request-visualization {
+  width: 100%;
+
+  canvas#visualization-canvas {
+    background: transparent;
+    height: 100%;
+    width: 100%;
+  }
 }

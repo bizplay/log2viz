@@ -17,6 +17,7 @@ function streamLogs(app, elem) {
   source.addEventListener('message', function(e) {
     var line = $.parseJSON(e.data);
     var index = _.sortedIndex(data, line, 'timestamp');
+    addLineToVisualization(line);
     data.splice(index, 0, line);
   }, false);
 

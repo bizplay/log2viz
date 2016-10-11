@@ -1,7 +1,10 @@
 javascript:
+  paper.install(window);
   $(function(){
     streamLogs('#{params[:id]}', $('table.logs tbody'));
+    startVisualization('visualization-canvas');
   });
+
 
 h1.page-title= params[:id]
 
@@ -28,7 +31,7 @@ h1.page-title= params[:id]
       h3.value
         .data 0
   .col
-    h2 
+    h2
       | Memory Usage
       == tooltip "Memory use across all web dynos. Enable <a href='https://devcenter.heroku.com/articles/log-runtime-metrics'><code>log-runtime-metrics</code> labs flag</a> to add memory usage to the app’s logs."
 
@@ -60,3 +63,9 @@ h1.page-title= params[:id]
   .activity
     h3.value.data
   p.dynos #{@web_processes} web #{pluralize(@web_processes, "process", "processes")} (#{@ps} #{pluralize(@ps, "dyno", "dynos")} x #{@concurrency} #{pluralize(@concurrency, "process", "processes")} per dyno)
+
+#request-visualization
+  h2
+    | Web Request Activity
+    == tooltip "Rough visualization of request activity."
+  canvas#visualization-canvas
